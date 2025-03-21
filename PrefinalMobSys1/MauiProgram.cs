@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using PrefinalMobSys1.Data;
 
 namespace PrefinalMobSys1
 {
@@ -21,6 +22,8 @@ namespace PrefinalMobSys1
     		builder.Logging.AddDebug();
 #endif
 
+            builder.Services.AddSingleton<AppShellContext>();
+            builder.Services.AddSingleton<DatabaseContext>();
             return builder.Build();
         }
     }

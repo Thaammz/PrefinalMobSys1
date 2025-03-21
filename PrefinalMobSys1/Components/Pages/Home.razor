@@ -1,5 +1,211 @@
 ﻿@page "/"
+<style>
+    article section:not(:first-child) {
+        margin-top: 20px;
+    }
+    .smallmenulist{
+    }
 
-<h1>Hello, world!</h1>
+        .smallmenulist button {
+            /*border:1px solid #CCC;*/
+            font-size: 25px;
+            box-shadow: 0px 0px 10px #EEE;
+            border-radius: 100px;
+            margin:0px 3px;
+        }
 
-Welcome to your new app.
+        .smallmenulist button i {
+        }
+
+    .portrait-menulist {
+        margin:0px auto;
+    }
+
+        .portrait-menulist .menuitem {
+            border: 1px solid #EEE;
+            box-shadow: 0px 0px 10px #EEE;
+            border-radius: 10px;
+            margin: 5px;
+            width: 40vw;
+            display: inline-block;
+            text-align:center;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .portrait-menulist .menuitem img {
+            width:100%
+        }
+
+        .portrait-menulist .menuitem h3 {
+            width: 100%
+        }
+        .portrait-menulist .menuitem h4 {
+            color:orange;
+        }
+
+            .portrait-menulist .menuitem .menuitem-actions {
+                text-align:right
+            }
+
+            .portrait-menulist .menuitem .menuitem-add {
+                /*position: absolute;
+                bottom: 0px;
+                right: 0px;*/
+                padding: 10px;
+                padding-top: 5px;
+                background-color: orange;
+                color: white;
+            }
+
+    .landscape-menulist {
+        margin: 0px auto;
+    }
+
+        .landscape-menulist .menuitem {
+            border: 1px solid #EEE;
+            box-shadow: 0px 0px 10px #EEE;
+            border-radius: 10px;
+            margin: 5px;
+            width: calc(100% - 10px);
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .landscape-menulist .menuitem img {
+                width: 30%;
+                float:left;
+                display:inline-block;
+                margin:5px;
+                padding:5px;
+            }
+
+            .landscape-menulist .menuitem h3 {
+                width: 100%;
+                margin-top:10px;
+            }
+
+            .landscape-menulist .menuitem h4 {
+                color: orange;
+            }
+
+            .landscape-menulist .menuitem h5 {
+                color: #CCC;
+                font-size:17px;
+            }
+
+            .landscape-menulist .menuitem .menuitem-actions {
+                text-align: right
+            }
+
+            .landscape-menulist .menuitem .menuitem-add {
+                padding: 10px;
+                padding-top: 5px;
+                background-color: orange;
+                color: white;
+            }
+</style>
+<SectionContent SectionName="page-buttons">
+    <button class="btn text-warning">
+        <i class="fa fa-search"></i>
+    </button>
+</SectionContent>
+<section>
+    <h1>Find your cravings</h1>
+    <div class="smallmenulist">
+        <button class="btn text-danger">
+            <i class="fa fa-hamburger"></i>
+        </button>
+        <button class="btn text-warning">
+            <i class="fa fa-pizza-slice"></i>
+        </button>
+        <button class="btn text-danger">
+            <i class="fa fa-hotdog"></i>
+        </button>
+        <button class="btn text-warning">
+            <i class="fa fa-cookie-bite"></i>
+        </button>
+        <button class="btn text-danger">
+            <i class="fa fa-ice-cream"></i>
+        </button>
+        <button class="btn text-primary">
+            <i class="fa fa-ellipsis-h"></i>
+        </button>
+    </div>
+</section>
+<section>
+    <h2>Popular Food</h2>
+    <div class="portrait-menulist">
+        <div class="menuitem">
+            <img src="imgs/pizzas/1.jpg" />
+            <h3>Peperoni</h3>
+            <h4>P300.00</h4>
+            <div class="menuitem-actions">
+                <a class="menuitem-add" href="javascript:void(0)">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        <div class="menuitem">
+            <img src="imgs/pizzas/1.jpg" />
+            <h3>Peperoni</h3>
+            <h4>P300.00</h4>
+            <div class="menuitem-actions">
+                <a class="menuitem-add" href="javascript:void(0)">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <h2>Top of the Week</h2>
+    <div class="landscape-menulist">
+        <div class="menuitem">
+            <img src="imgs/pizzas/1.jpg" />
+            <h3>Peperoni</h3>
+            <h5>Description here</h5>
+            <h4>P300.00</h4>
+            <div class="menuitem-actions">
+                <a class="menuitem-add" href="javascript:void(0)">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        <div class="menuitem">
+            <img src="imgs/pizzas/1.jpg" />
+            <h3>Peperoni</h3>
+            <h5>Description here</h5>
+            <h4>P300.00</h4>
+            <div class="menuitem-actions">
+                <a class="menuitem-add" href="javascript:void(0)">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        <div class="menuitem">
+            <img src="imgs/pizzas/1.jpg" />
+            <h3>Peperoni</h3>
+            <h5>Description here</h5>
+            <h4>P300.00</h4>
+            <div class="menuitem-actions">
+                <a class="menuitem-add" href="javascript:void(0)">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        <div class="menuitem">
+            <img src="imgs/pizzas/1.jpg" />
+            <h3>Peperoni</h3>
+            <h5>Description here</h5>
+            <h4>P300.00</h4>
+            <div class="menuitem-actions">
+                <a class="menuitem-add" href="javascript:void(0)">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+

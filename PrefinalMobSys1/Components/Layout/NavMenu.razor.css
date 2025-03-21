@@ -79,11 +79,16 @@
         }
 
 .nav-scrollable {
-    display: none;
+    /*display: none;*/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    display: block;
+    height: 0px;
+    overflow:hidden;
+    transition: height ease 0.4s;
 }
 
 .navbar-toggler:checked ~ .nav-scrollable {
     display: block;
+    height: 100vh;
 }
 
 @media (min-width: 641px) {
@@ -94,6 +99,9 @@
     .nav-scrollable {
         /* Never collapse the sidebar for wide screens */
         display: block;
+        height: 0px;
+        transition:height ease 0.9s;
+        overflow: hidden;
         /* Allow sidebar to scroll for tall menus */
         height: calc(100vh - 3.5rem);
         overflow-y: auto;

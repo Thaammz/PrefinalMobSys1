@@ -6,6 +6,7 @@
 
 main {
     flex: 1;
+    /*background-color: lightgray;*/
 }
 
 .sidebar {
@@ -75,3 +76,5 @@ main {
         padding-right: 1.5rem !important;
     }
 }
+
+

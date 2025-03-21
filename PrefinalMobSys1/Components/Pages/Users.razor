@@ -1,0 +1,129 @@
+﻿@page "/users"
+<style>
+    #pneUserForm {
+        box-shadow: 0px 0px 10px #EEE;
+        border-radius: 10px !important;
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+
+        #pneUserForm input, #pneUserForm button, #pneUserForm label {
+            font-size: 21px !important;
+        }
+
+    .usersList {
+        box-shadow: 0px 0px 10px #EEE;
+        border-radius: 10px;
+    }
+
+        .usersList ul {
+            margin: 0px;
+            padding: 0px;
+        }
+
+            .usersList ul li {
+                list-style: none;
+                margin: 0px;
+                padding: 20px;
+                border: none;
+                border-bottom: 1px solid #CCC;
+            }
+
+                .usersList ul li:nth-child(even) {
+                    background-color: #EEE;
+                }
+
+            .usersList ul li {
+                list-style: none;
+                margin: 0px;
+                padding: 10px;
+                border: none;
+                border-bottom: 1px solid #CCC;
+            }
+
+    .form-buttons {
+        margin-top: 10px;
+    }
+
+        .form-buttons .btn {
+            width: calc(50% - 5px);
+            margin: 0px;
+            padding: 15px;
+            border-radius: 0px;
+        }
+
+            .form-buttons .btn:first-child {
+                border-right: 1px solid #CCC;
+            }
+</style>
+<h3><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Users</h3>
+@if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
+{
+    <div class="alert alert-@Model.Status">
+        <i class="fa fa-info-circle"></i>&nbsp;
+        @Model.StatusMessage
+    </div>
+}
+<SectionContent SectionName="page-buttons">    
+    @if (!Model.ShowForm)
+    {
+    <button class="btn text-primary" @onclick="AddUser" title="Add user">
+        <i class="fa fa-user-plus" aria-hidden="true"></i>
+    </button>
+    <button class="btn text-danger">
+        <i class="fa fa-user-minus" aria-hidden="true"></i>
+    </button>
+    <button class="btn text-success">
+        <i class="fa fa-search"></i>
+    </button>
+    }
+    
+</SectionContent>
+
+@if (Model.ShowForm)
+{
+    <div id="pneUserForm" class="card">
+        <div class="content">
+            <label class="form-label">ID:</label>
+            <input type="text" @bind="Model.SelectedUser.ID" disabled class="form-control">
+            <label class="form-label">Username:</label>
+            <input type="text" @bind="Model.SelectedUser.Username" placeholder="Username" class="form-control">
+            <label class="form-label">Password:</label>
+            <input type="password" @bind="Model.SelectedUser.Password" placeholder="Password" class="form-control">
+            <label class="form-label">First Name:</label>
+            <input type="text" @bind="Model.SelectedUser.FirstName" placeholder="First Name" class="form-control">
+            <label class="form-label">Last Name:</label>
+            <input type="text" @bind="Model.SelectedUser.LastName" placeholder="Last Name" class="form-control">
+        </div>
+        <div class="form-buttons">
+            <button class="btn text-primary" @onclick="SaveUser">
+                <i class="fa fa-save"></i>&nbsp;
+                Save
+            </button>
+            <button class="btn text-secondary" @onclick="()=>{Model.ShowForm=false;}">
+                <i class="fa fa-times"></i>&nbsp;
+                Cancel
+            </button>
+        </div>
+    </div>
+}
+<div class="usersList">
+    <ul>
+        @foreach (var usr in Model.Users)
+        {
+            <li data-id="@usr.ID" data-username="@usr.Username" @onclick="()=>{ LoadUser(usr.ID); }" class="text-success">
+                <h5>
+                    <i class="fa fa-user"></i>&nbsp;
+                    @(usr.LastName + ", " + usr.FirstName) 
+                </h5>
+                <button class="btn text-secondary" style=" float: right; margin-top: -35px;  ">
+                    <i class="fa fa-ellipsis-v"></i>
+                </button>
+                <div style="display:none">
+                    <button class="btn btn-outline-success" @onclick="()=>{ LoadUser(usr.ID); }"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-outline-danger" @onclick="()=>{ DeleteUser(usr.ID); }"><i class="fa fa-times"></i></button>
+                </div>
+            </li>
+        }        
+    </ul>
+</div>

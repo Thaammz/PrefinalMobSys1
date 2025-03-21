@@ -1,17 +1,96 @@
 ﻿@inherits LayoutComponentBase
-
 <div class="page">
-    <div class="sidebar">
+    @*<div class="sidebar">
         <NavMenu />
-    </div>
+    </div>*@ 
 
     <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+        <div class="topbar">
+            <span class="leftside">
+                <button id="btnMenu" class="btn text-primary" href="javascript:void(0)" onclick="toggleMenu()">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <button id="btnMenuClose" style="display:none" class="btn text-danger" href="javascript:void(0)" onclick="$('.mobile-nav').toggleClass('open');$('#btnMenu').toggle();$('#btnMenuClose').toggle()">
+                    <i class="fa fa-times"></i>
+                </button>
+            </span>
 
-        <article class="content px-4">
+            <span class="rightside">
+                <SectionOutlet SectionName="page-buttons" />                
+            </span>
+        </div>
+        <nav class="mobile-nav" onclick="hideMenu()">
+            <ul>
+                <li>
+                    <a class="nav-link" href="">
+                        <i class="fa fa-home"></i>&nbsp;Home
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="register">
+                        <i class="fa fa-list"></i>&nbsp;Register
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="login">
+                        <i class="fa fa-sign-in-alt"></i>&nbsp;Login
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="catalog">
+                        <i class="fa fa-store"></i>&nbsp;Catalog
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="mycart">
+                        <i class="fa fa-shopping-cart"></i>&nbsp;My Cart
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="myorders">
+                        <i class="fa fa-truck"></i>&nbsp;My Orders
+                    </a>
+                </li>
+                <hr />
+                <!--Admin Pages Here-->
+                <li>
+                    <a class="nav-link" href="products">
+                        <i class="fa fa-dolly-flatbed"></i>&nbsp;Products
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="orders">
+                        <i class="fa fa-cash-register"></i>&nbsp;Orders
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="users">
+                        <i class="fa fa-users"></i>&nbsp;Users
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <article class="content px-4" onclick="hideMenu()">
             @Body
         </article>
     </main>
 </div>
+<script>
+    function toggleMenu() {
+        $('.mobile-nav').toggleClass('open');
+        $('#btnMenu').toggle();
+        $('#btnMenuClose').toggle();
+    }
+
+    function showMenu() {
+        $('.mobile-nav').addClass('open');
+        $('#btnMenu').hide();
+        $('#btnMenuClose').show();
+    }
+
+    function hideMenu() {
+        $('.mobile-nav').removeClass('open');
+        $('#btnMenu').show();
+        $('#btnMenuClose').hide();
+    }
+</script>
