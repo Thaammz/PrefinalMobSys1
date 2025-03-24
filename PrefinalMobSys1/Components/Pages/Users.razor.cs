@@ -16,6 +16,8 @@ namespace PrefinalMobSys1.Components.Pages
 
         public UsersViewModel Model { get; set; }
 
+        public string ClassControl = "";
+        
         protected override async void OnInitialized()
         {
             Model = new UsersViewModel();
@@ -47,7 +49,7 @@ namespace PrefinalMobSys1.Components.Pages
             else
             {
                 await DB.SaveUser(Model.SelectedUser);
-                Model.ShowForm = false;
+                CloseUserForm();
                 Model.Status = "success";
                 Model.StatusMessage = "User changes has been saved successfully!";
                 Model.Users = await GetUsers();
@@ -58,7 +60,7 @@ namespace PrefinalMobSys1.Components.Pages
         public async void LoadUser(int userid)
         {
             Model.SelectedUser = (from row in Model.Users where row.ID == userid select row).FirstOrDefault();
-            Model.ShowForm = true;
+            ShowUserForm();
             Model.IsNew = false;
             await InvokeAsync(StateHasChanged);//refresh rendered page
         }
@@ -84,9 +86,20 @@ namespace PrefinalMobSys1.Components.Pages
             ShowUserForm();
         }
 
-        public void ShowUserForm()
+        public async void ShowUserForm()
         {
             Model.ShowForm = true;
+            await Task.Delay(100);
+            //ClassControl = "animate__animated animate__slideInUp";
+            await InvokeAsync(StateHasChanged);
+        }
+
+        public async void CloseUserForm()
+        {
+            //ClassControl = "animate__animated animate__slideOutDown";
+            await Task.Delay(100);
+            Model.ShowForm = false;
+            await InvokeAsync(StateHasChanged);
         }
     }
 }

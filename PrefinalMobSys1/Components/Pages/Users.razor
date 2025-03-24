@@ -1,10 +1,52 @@
 ﻿@page "/users"
 <style>
+
+    fieldset{
+        min-width: 0;
+        padding: 0px 5px;
+        margin: 5px 0px;
+        border: 1px solid #CCC;
+        border-radius: 10px;
+    }
+
+    fieldset legend{
+        float: unset;
+        width: unset;
+        padding: 0px 5px;
+        margin-bottom: unset;
+        margin-left:5px;
+        font-size: unset;
+        line-height: unset;
+        display:none;
+    }
+
+    fieldset .form-control {
+        border:none !important;
+    }
+
+    fieldset .form-control:focus,fieldset  .form-check-input:focus {
+        box-shadow: unset;
+        outline:none;
+    }
+
+    fieldset.hasFocus,fieldset.hasText {
+        border: 2px solid #258cfb !important;
+    }
+
+    fieldset:has(> .form-control:focus) legend,fieldset.hasText legend {
+        display:inline;
+        color:#258cfb;
+    }
+
     #pneUserForm {
-        box-shadow: 0px 0px 10px #EEE;
+        box-shadow: 0px 0px 10px #CCC;
         border-radius: 10px !important;
         margin-bottom: 10px;
-        padding: 5px;
+        padding: 25px;
+        width: 100%;
+        position: absolute;
+        left: 0px;
+        bottom: auto;
     }
 
         #pneUserForm input, #pneUserForm button, #pneUserForm label {
@@ -80,42 +122,18 @@
     
 </SectionContent>
 
-@if (Model.ShowForm)
-{
-    <div id="pneUserForm" class="card">
-        <div class="content">
-            <label class="form-label">ID:</label>
-            <input type="text" @bind="Model.SelectedUser.ID" disabled class="form-control">
-            <label class="form-label">Username:</label>
-            <input type="text" @bind="Model.SelectedUser.Username" placeholder="Username" class="form-control">
-            <label class="form-label">Password:</label>
-            <input type="password" @bind="Model.SelectedUser.Password" placeholder="Password" class="form-control">
-            <label class="form-label">First Name:</label>
-            <input type="text" @bind="Model.SelectedUser.FirstName" placeholder="First Name" class="form-control">
-            <label class="form-label">Last Name:</label>
-            <input type="text" @bind="Model.SelectedUser.LastName" placeholder="Last Name" class="form-control">
-        </div>
-        <div class="form-buttons">
-            <button class="btn text-primary" @onclick="SaveUser">
-                <i class="fa fa-save"></i>&nbsp;
-                Save
-            </button>
-            <button class="btn text-secondary" @onclick="()=>{Model.ShowForm=false;}">
-                <i class="fa fa-times"></i>&nbsp;
-                Cancel
-            </button>
-        </div>
-    </div>
-}
 <div class="usersList">
     <ul>
         @foreach (var usr in Model.Users)
         {
-            <li data-id="@usr.ID" data-username="@usr.Username" @onclick="()=>{ LoadUser(usr.ID); }" class="text-success">
-                <h5>
+            <li data-id="@usr.ID" data-username="@usr.Username" @onclick="()=>{ LoadUser(usr.ID); }" >
+                <h5 class="text-success">
                     <i class="fa fa-user"></i>&nbsp;
                     @(usr.LastName + ", " + usr.FirstName) 
                 </h5>
+                <h6 class="text-secondary">
+                    @usr.Username
+                </h6>
                 <button class="btn text-secondary" style=" float: right; margin-top: -35px;  ">
                     <i class="fa fa-ellipsis-v"></i>
                 </button>
@@ -127,3 +145,62 @@
         }        
     </ul>
 </div>
+
+@if (Model.ShowForm)
+{
+    <div id="pneUserForm" class="@ClassControl">
+        <h4>New User</h4>
+        <div class="content">
+            @* <label class="form-label">ID:</label>
+            <input type="text" @bind="Model.SelectedUser.ID" disabled class="form-control"> *@
+            <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.Username))? "hasText":"")">
+                <legend>Username:</legend>
+                <input type="text" @bind="Model.SelectedUser.Username" placeholder="Username" title="Username" class="form-control ">
+            </fieldset>
+            <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.Password))? "hasText":"")">
+                <legend>Password:</legend>
+                <input type="password" @bind="Model.SelectedUser.Password" placeholder="Password" title="Password" class="form-control ">
+            </fieldset>
+            <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.FirstName))? "hasText":"")">
+                <legend>First Name:</legend>
+                <input type="text" @bind="Model.SelectedUser.FirstName" placeholder="First Name" title="First Name" class="form-control ">
+            </fieldset>
+            <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.LastName))? "hasText":"")">
+                <legend>Last Name:</legend>
+                <input type="text" @bind="Model.SelectedUser.LastName" placeholder="Last Name" title="Last Name" class="form-control ">
+            </fieldset>
+            <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.MobileNumber))? "hasText":"")">
+                <legend>Mobile Number:</legend>
+                <input type="text" @bind="Model.SelectedUser.MobileNumber" placeholder="Mobile Number" title="Mobile Number" class="form-control ">
+            </fieldset>
+            <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.Address))? "hasText":"")">
+                <legend>Address:</legend>
+                <textarea @bind="Model.SelectedUser.Address" placeholder="Address" title="Address" class="form-control "></textarea>
+            </fieldset>
+        </div>
+        <div class="form-buttons">
+            <button class="btn text-primary" @onclick="SaveUser">
+                <i class="fa fa-save"></i>&nbsp;
+                Save
+            </button>
+            <button class="btn text-secondary" @onclick="CloseUserForm">
+                <i class="fa fa-times"></i>&nbsp;
+                Cancel
+            </button>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $('.form-control').on('focus',function(){
+                $(this).attr('placeholder','');
+                $(this).parent().addClass('hasFocus');
+            });
+            $('.form-control').on('blur',function(){
+                $(this).attr('placeholder',$(this).attr('title'));
+                $(this).parent().removeClass('hasFocus');
+            });
+        });
+    </script>
+}
+
+                
