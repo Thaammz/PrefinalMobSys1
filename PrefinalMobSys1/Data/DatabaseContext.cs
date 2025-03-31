@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace PrefinalMobSys1.Data
 {
+    /// <summary>
+    /// Centralized Class for handing local SQLite Database things for the App
+    /// Loaded in MauiProgram as Singleton (one instance only within the App)
+    /// </summary>
     public class DatabaseContext
     {
         SQLiteAsyncConnection database;

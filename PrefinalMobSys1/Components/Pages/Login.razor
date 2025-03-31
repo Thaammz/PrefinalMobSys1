@@ -1,5 +1,23 @@
 ﻿@page "/login"
-
 <div class="card">
-
+    @if (!string.IsNullOrWhiteSpace(StatusMessage))
+    {
+        <div class="alert alert-@Status">
+            <i class="fa fa-info-circle"></i>&nbsp;
+            @StatusMessage
+        </div>
+    }
+    <table>
+        <tr>
+            <td><label>Username:</label></td>
+            <td><input type="text" @bind="Model.Username" /></td>
+        </tr>
+        <tr>
+            <td><label>Password:</label></td>
+            <td><input type="password" @bind="Model.Password" /></td>
+        </tr>
+    </table>
+    <button @onclick="LoginUser">
+        <i class="fas fa-sign-in-alt"></i>&nbsp;Log In
+    </button>
 </div>

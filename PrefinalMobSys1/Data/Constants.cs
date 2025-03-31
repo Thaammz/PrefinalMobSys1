@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PrefinalMobSys1.Data
 {
+    /// <summary>
+    /// Centralized Class for global constants (unchangable values)
+    /// </summary>
     public static class Constants
     {
         /// <summary>

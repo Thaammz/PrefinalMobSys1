@@ -1,0 +1,17 @@
+﻿@using PrefinalMobSys1.Data
+@inject AppShellContext AppShell
+
+
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        AppShell.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        AppShell.OnChange -= StateHasChanged;
+    }
+}

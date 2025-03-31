@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace PrefinalMobSys1.Data
 {
+    /// <summary>
+    /// Centralized Class for handing global level things for the App
+    /// Loaded in MauiProgram as Singleton (one instance only within the App)
+    /// </summary>
     public class AppShellContext
     {
         public static AppShellContext Instance { set; get; }

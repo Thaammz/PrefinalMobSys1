@@ -1,0 +1,47 @@
+﻿@page "/productitem"
+<SectionContent SectionName="page-buttons">
+    <span>
+        <button class="btn text-warning" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="btn text-warning" >
+            <i class="far fa-heart"></i>
+        </button>
+    </span>    
+</SectionContent>
+<div class="product-details">
+    <h1>@Model.Item.Name</h1>
+    <div class="product-photo">
+        <img src="/ProductPhotos/@(Model.Item.ID).jpg" />
+    </div>
+    <div class="product-middle-section">
+        <div id="toCart" class="input-group">
+            <span class="input-group-text btn-warning"><i class="fa fa-minus"></i></span>
+            <input id="txtQuantity" type="number" class="form-control" />
+            <span class="input-group-text btn-warning"><i class="fa fa-plus"></i></span>
+        </div>
+    </div>
+    <div class="product-info">
+        <div class="product-properties">
+            <div class="product-property">
+                <h3>Size</h3>
+                <h2>N/A</h2>
+            </div>
+            <div class="product-property">
+                <h3>Weight</h3>
+                <h2>N/A</h2>
+            </div>
+            <div class="product-property">
+                <h3>Price</h3>
+                <h2><i class="fa fa-dollar-sign"></i>@Model.Item.Price</h2>
+            </div>
+        </div>
+        <div class="product-description-review">
+            <h3>Details</h3>
+            <p>@Model.Item.Description</p>
+        </div>
+        <button class="btn btn-warning addtocart">
+            Add to Cart
+        </button>
+    </div>
+</div>

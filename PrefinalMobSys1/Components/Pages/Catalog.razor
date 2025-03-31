@@ -1,6 +1,57 @@
 ﻿@page "/catalog"
-<h3>Catalog</h3>
-
-@code {
-
-}
+<SectionContent SectionName="page-buttons">
+    <div id="searchBox" class="input-group header-search" style="display:none;">
+        <span class="input-group-text text-warning"><i class="fa fa-search"></i></span>
+        <input id="txtSearch" type="text" class="form-control" placeholder="Search" value="" />
+        <span class="input-group-text" onclick="hideSearchBox()"><i class="fa fa-times"></i></span>
+    </div>
+    <span id="controlBox">
+        <button class="btn text-warning" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="btn text-warning">
+            <i class="fa fa-search"></i>
+        </button>
+    </span>
+</SectionContent>
+<section>
+    <div class="smallmenulist">
+        <a class="btn text-danger" href="/catalog?category=Hamburgers">
+            <i class="fa fa-hamburger"></i>
+        </a>
+        <a class="btn text-warning" href="/catalog?category=Pizza">
+            <i class="fa fa-pizza-slice"></i>
+        </a>
+        <a class="btn text-danger" href="/catalog?category=Hotdogs">
+            <i class="fa fa-hotdog"></i>
+        </a>
+        <a class="btn text-warning" href="/catalog?category=Cookies">
+            <i class="fa fa-cookie-bite"></i>
+        </a>
+        <a class="btn text-danger" href="/catalog?category=IceCream">
+            <i class="fa fa-ice-cream"></i>
+        </a>
+        <a class="btn text-primary" href="/catalog?category=All">
+            <i class="fa fa-ellipsis-h"></i>
+        </a>
+    </div>
+</section>
+<section>
+    <h2>Search Result for @Model.Search:</h2>
+    <div class="landscape-menulist">
+        @foreach (var itm in Model.Result)
+        {
+            <div class="menuitem">
+                <img src="/ProductPhotos/@(itm.ID).jpg" />
+                <h3>@itm.Name</h3>
+                <h5>@itm.Description</h5>
+                <h4>P@(itm.Price)</h4>
+                <div class="menuitem-actions">
+                    <a class="menuitem-add" href="/productitem?productid=@itm.ID">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</section>

@@ -73,7 +73,8 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.65" Color="#ffc107"  />
+        <!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.50" Color="#ffc107" />-->
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.70" Color="#00FF0000" TintColor="#ffc107" />
 		<!--<MauiIcon Include="Resources\AppIcon\appicon2.png" Color="#ffc107"  />-->
         <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#ffc107" BaseSize="128,128" />
@@ -96,6 +97,10 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\imgs\ads\" />
     </ItemGroup>
 
 </Project>

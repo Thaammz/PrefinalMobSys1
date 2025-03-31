@@ -1,61 +1,4 @@
 ﻿@page "/products"
-<style>
-    #pneProductForm {
-        box-shadow: 0px 0px 10px #EEE;
-        border-radius: 10px !important;
-        margin-bottom: 10px;
-        padding: 5px;
-    }
-
-        #pneProductForm input, #pneProductForm button, #pneProductForm label {
-            font-size: 21px !important;
-        }
-
-    .usersList {
-        box-shadow: 0px 0px 10px #EEE;
-        border-radius: 10px;
-    }
-
-        .usersList ul {
-            margin: 0px;
-            padding: 0px;
-        }
-
-            .usersList ul li {
-                list-style: none;
-                margin: 0px;
-                padding: 20px;
-                border: none;
-                border-bottom: 1px solid #CCC;
-            }
-
-                .usersList ul li:nth-child(even) {
-                    background-color: #EEE;
-                }
-
-            .usersList ul li {
-                list-style: none;
-                margin: 0px;
-                padding: 10px;
-                border: none;
-                border-bottom: 1px solid #CCC;
-            }
-
-    .form-buttons {
-        margin-top: 10px;
-    }
-
-        .form-buttons .btn {
-            width: calc(50% - 5px);
-            margin: 0px;
-            padding: 15px;
-            border-radius: 0px;
-        }
-
-            .form-buttons .btn:first-child {
-                border-right: 1px solid #CCC;
-            }
-</style>
 <h3><i class="fa fa-dolly-flatbed"></i>&nbsp;Products</h3>
 @if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
 {
@@ -65,77 +8,153 @@
     </div>
 }
 <SectionContent SectionName="page-buttons">
+    <div id="searchBox" class="input-group header-search" style="display:none;">
+        <span class="input-group-text text-warning"><i class="fa fa-search"></i></span>
+        <input id="txtSearch" type="text" class="form-control" placeholder="Search" value="@Model.Search" @onchange="SearchTerm" />
+        <span class="input-group-text" onclick="hideSearchBox()"><i class="fa fa-times"></i></span>
+    </div>
+    <span id="controlBox">
     @if (!Model.ShowForm)
     {
         <button class="btn text-primary" @onclick="AddProduct" title="Add user">
-            <i class="fa fa-folder-plus" aria-hidden="true"></i>
+            <i class="fa fa-plus"></i>
         </button>
-        <button class="btn text-danger">
-            <i class="fa fa-folder-minus" aria-hidden="true"></i>
-        </button>
-        <button class="btn text-success">
+            <button class="btn text-warning" onclick="showSearchBox()">
             <i class="fa fa-search"></i>
         </button>
     }
-
-</SectionContent>
-
-@if (Model.ShowForm)
-{
+    </span>
     
-}
-<div id="pneProductForm" class="card animate__animated @((Model.ShowForm)? "animate__backInUp": "animate__backOutDown" )">
-    <div class="content">
-        <label class="form-label">ID:</label>
-        <input type="text" @bind="Model.SelectedProduct.ID" disabled class="form-control">
-        <label class="form-label">Productname:</label>
-        <input type="text" @bind="Model.SelectedProduct.Name" placeholder="Product Name" class="form-control">
-        <label class="form-label">Category:</label>
-        <select @bind="Model.SelectedProduct.Category" class="form-control">
-            <option>Hamburgers</option>
-            <option>Pizza</option>
-            <option>Hotdogs</option>
-            <option>Cookies</option>
-            <option>IceCream</option>
-            <option>Others</option>
-        </select>
-        <label class="form-label">Description:</label>
-        <textarea @bind="Model.SelectedProduct.Description" class="form-control"></textarea>
-        <label class="form-label">Price:</label>
-        <input type="text" @bind="Model.SelectedProduct.Price" placeholder="P0.00" class="form-control">
-        <label class="form-label">SKU:</label>
-        <input type="text" @bind="Model.SelectedProduct.SKU" placeholder="AABBCC001122" class="form-control">
-        <label class="form-label" for="chkIsActive"><input id="chkIsActive" type="checkbox" @bind="Model.SelectedProduct.IsActive" />Is Active</label>
-    </div>
-    <div class="form-buttons">
-        <button class="btn text-primary" @onclick="SaveProduct">
-            <i class="fa fa-save"></i>&nbsp;
-            Save
-        </button>
-        <button class="btn text-secondary" @onclick="()=>{Model.ShowForm=false;}">
-            <i class="fa fa-times"></i>&nbsp;
-            Cancel
-        </button>
-    </div>
-</div>
-<div class="usersList" >
+</SectionContent>
+<div class="itemsList">
     <ul>
         @foreach (var prod in Model.Products)
         {
             <li data-id="@prod.ID" data-username="@prod.Name" @onclick="()=>{ LoadProduct(prod.ID); }" class="text-success">
-                <h5>
-                    <i class="fa fa-box"></i>&nbsp;
-                    @prod.Name
-                </h5>
-                <p>@prod.Description</p>
-                <button class="btn text-secondary" style=" float: right; margin-top: -35px;  ">
-                    <i class="fa fa-caret-right"></i>
-                </button>
-                <div style="display:none">
-                    <button class="btn btn-outline-success" @onclick="()=>{ LoadProduct(prod.ID); }"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-outline-danger" @onclick="()=>{ DeleteProduct(prod.ID); }"><i class="fa fa-times"></i></button>
+                <div class="leftindicator">
+                    <i class="fa @(GetIconFromCategory(prod.Category))"></i>
+                    &nbsp
                 </div>
+                <div class="centerdetails">
+                    <h5>
+                        @prod.Name
+                    </h5>
+                    <p>@prod.Description</p>
+                </div>
+                <div class="rightaction">
+                    <button class="btn text-secondary" @onclick="()=>{ LoadProduct(prod.ID); }">
+                        <i class="fa fa-caret-right"></i>
+                    </button>
+                </div>
+                <button style="display:none" class="btn btn-outline-danger" @onclick="()=>{ DeleteProduct(prod.ID); }"><i class="fa fa-times"></i></button>
             </li>
         }
     </ul>
 </div>
+@if (Model.ShowForm)
+{
+    <!--This is Optional-->
+    <div class="pageblocker"></div>
+
+    <div id="pneProductForm" class="pagepanelform">
+        <h4>
+            Product
+            @if(!Model.IsNew){
+                <button class="btn text-danger" style="float:right" @onclick="()=>{ DeleteProduct(Model.SelectedProduct.ID); }"><i class="fa fa-trash"></i></button>
+            }            
+        </h4>
+        <div class="content">
+            @* <label class="form-label">ID:</label>
+            <input type="text" @bind="Model.SelectedProduct.ID" disabled class="form-control"> *@
+            <fieldset class="hasText">
+                <legend>Product Photo:</legend>
+                <div class="photoBox" style="height:100px;display:inline-flex">
+                    <img src="@Model.LoadedPhotoPath" style="height:100%" />
+                    <button class="btn text-success" @onclick="(()=>{AddProductPhoto(Model.SelectedProduct.ID);})"><i class="fa fa-edit"></i></button>
+                    <button class="btn text-danger"><i class="fa fa-trash"></i></button>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Product Name:</legend>
+                <input type="text" @bind="Model.SelectedProduct.Name" placeholder="Product Name" title="Product Name" class="form-control ">
+            </fieldset>
+            <fieldset>
+                <legend>Category:</legend>
+                <select @bind="Model.SelectedProduct.Category" class="form-control" title="Category">
+                    <option>Please select category</option>
+                    <option>Hamburgers</option>
+                    <option>Pizza</option>
+                    <option>Hotdogs</option>
+                    <option>Cookies</option>
+                    <option>IceCream</option>
+                    <option>Others</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Description:</legend>
+                <textarea @bind="Model.SelectedProduct.Description" title="Description" placeholder="Description" class="form-control"></textarea>
+            </fieldset>
+            <fieldset>
+                <legend>Price:</legend>
+                <input type="text" @bind="Model.SelectedProduct.Price" placeholder="P0.00" title="Price" class="form-control">
+            </fieldset>
+            <fieldset>
+                <legend>SKU:</legend>
+                <input type="text" @bind="Model.SelectedProduct.SKU" placeholder="SKU" class="form-control" title="SKU">
+            </fieldset>
+            <fieldset>
+                <label class="form-control" for="chkIsActive" title="Is Active"><input id="chkIsActive" type="checkbox" @bind="Model.SelectedProduct.IsActive" />&nbsp;Is Active</label>
+            </fieldset>            
+        </div>
+        <div class="form-buttons">
+            <button class="btn text-primary" @onclick="SaveProduct">
+                <i class="fa fa-save"></i>&nbsp;
+                Save
+            </button>
+            <button id="btnCancel" class="btn text-secondary" @onclick="()=>{Model.ShowForm=false;}">
+                <i class="fa fa-times"></i>&nbsp;
+                Cancel
+            </button>
+        </div>
+    </div>
+
+    <!--This JS Script would only execute ShowForm is enable-->
+    <script>
+        $(function(){
+            $('#btnCancel').focus();
+            $('.form-control').on('focus',function(){
+                $(this).attr('placeholder','');
+                $(this).parent().addClass('hasFocus');
+            });
+            $('.form-control').on('blur',function(){
+                $(this).attr('placeholder',$(this).attr('title'));
+                $(this).parent().removeClass('hasFocus');
+            });
+            $('.form-control').each(function(){
+                $(this).parent().removeClass('hasText');
+                if($(this).val().length > 0){
+                    $(this).parent().addClass('hasText');
+                }
+                $(this).on('change',function(){
+                    $(this).parent().removeClass('hasText');
+                    if($(this).val().length > 0){
+                        $(this).parent().addClass('hasText');
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<script>
+    function showSearchBox(){
+        $('#searchBox').show();
+        $('#controlBox').hide();
+        $('#txtSearch').focus();
+    }
+
+    function hideSearchBox(){
+        $('#searchBox').hide();
+        $('#controlBox').show();
+    }
+</script>

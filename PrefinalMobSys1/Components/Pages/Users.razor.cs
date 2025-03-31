@@ -21,6 +21,9 @@ namespace PrefinalMobSys1.Components.Pages
         protected override async void OnInitialized()
         {
             Model = new UsersViewModel();
+            Model.SelectMode = false;
+            Model.IsNew = false;
+            Model.ShowForm = false;
             Model.Users = await GetUsers();
             await InvokeAsync(StateHasChanged);//refresh rendered page
             //return Task.Delay(0);
@@ -99,6 +102,18 @@ namespace PrefinalMobSys1.Components.Pages
             //ClassControl = "animate__animated animate__slideOutDown";
             await Task.Delay(100);
             Model.ShowForm = false;
+            await InvokeAsync(StateHasChanged);
+        }
+
+        public async void SelectUsers()
+        {
+            Model.SelectMode = true;
+            await InvokeAsync(StateHasChanged);
+        }
+
+        public async void CancelSelectUsers()
+        {
+            Model.SelectMode = false;
             await InvokeAsync(StateHasChanged);
         }
     }
