@@ -1,23 +1,48 @@
 ﻿@page "/login"
-<div class="card">
-    @if (!string.IsNullOrWhiteSpace(StatusMessage))
-    {
-        <div class="alert alert-@Status">
-            <i class="fa fa-info-circle"></i>&nbsp;
-            @StatusMessage
-        </div>
-    }
-    <table>
-        <tr>
-            <td><label>Username:</label></td>
-            <td><input type="text" @bind="Model.Username" /></td>
-        </tr>
-        <tr>
-            <td><label>Password:</label></td>
-            <td><input type="password" @bind="Model.Password" /></td>
-        </tr>
-    </table>
-    <button @onclick="LoginUser">
-        <i class="fas fa-sign-in-alt"></i>&nbsp;Log In
-    </button>
-</div>
+<form @onsubmit="LoginUser">
+    <div class="card enhanced">
+        @if (!string.IsNullOrWhiteSpace(StatusMessage))
+        {
+            <div class="alert alert-@Status">
+                <i class="fa fa-info-circle"></i>&nbsp;
+                @StatusMessage
+            </div>
+        }
+        <fieldset>
+            <legend>Username:</legend>
+            <input class="form-control" type="text" @bind="Model.Username" placeholder="Username" title="Username" />
+        </fieldset>
+        <fieldset>
+            <legend>Password:</legend>
+            <input type="password" @bind="Model.Password" placeholder="Password" title="Password" class="form-control ">
+        </fieldset>
+        <button type="submit" class="btn btn-warning scaledbutton">
+            <i class="fas fa-sign-in-alt"></i>&nbsp;Log In
+        </button>
+    </div>
+</form>
+
+<script>
+    $(function(){
+        $('.form-control').on('focus',function(){
+            $(this).attr('placeholder','');
+            $(this).parent().addClass('hasFocus');
+        });
+        $('.form-control').on('blur',function(){
+            $(this).attr('placeholder',$(this).attr('title'));
+            $(this).parent().removeClass('hasFocus');
+        });
+        $('.form-control').each(function(){
+            $(this).parent().removeClass('hasText');
+            if($(this).val().length > 0){
+                $(this).parent().addClass('hasText');
+            }
+            $(this).on('change',function(){
+                $(this).parent().removeClass('hasText');
+                if($(this).val().length > 0){
+                    $(this).parent().addClass('hasText');
+                }
+            });
+        });
+    });
+</script>

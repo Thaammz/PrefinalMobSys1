@@ -30,7 +30,7 @@ namespace PrefinalMobSys1.Components.Pages
         {
             Model = new ProductItemViewModel();
             Model.Item = new Product();
-
+            Model.Quantity = 0;
             var allproducts = await DB.Products();
 
             if (allproducts != null)
@@ -46,5 +46,95 @@ namespace PrefinalMobSys1.Components.Pages
 
             await InvokeAsync(StateHasChanged);//refresh rendered page
         }
+
+        public void AddQuantity()
+        {
+            Model.Quantity++;
+            
+        }
+
+        public void MinusQuantity()
+        {
+            if (Model.Quantity > 0)
+            {
+                Model.Quantity--;
+            }
+
+
+            //removes to cart if zero quantity
+            if (Model.Quantity == 0)
+            {
+                //UI to remove to cart
+            }
+        }
+
+
+        public async void AddToCart() 
+        {
+            if (AppShell.CurrentUser != null) 
+            {
+                int userID = AppShell.CurrentUser.ID;
+                Cart? order = null;
+                List<Cart> orders = await DB.Carts();
+                if (orders != null)
+                {
+                    order = (from r in orders
+                             where r.UserID == userID
+                             && !r.IsPaid
+                             && !r.IsCompleted
+                             select r
+                         ).FirstOrDefault();
+                }
+                if (order == null)
+                {
+                    order = new Cart() {
+                        UserID = AppShell.CurrentUser.ID,
+                        ReferenceCode = "",
+                        PaymentReference = "",
+                        IsCompleted = false,
+                        IsPaid = false,
+                        IsDeleted = false,
+                        CreatedBy = AppShell.CurrentUser.Username,
+                        CreatedDate = DateTime.Now,
+                    };
+                    
+                }
+                order.ModifiedBy = AppShell.CurrentUser.Username;
+                order.ModifiedDate = DateTime.Now;
+                await DB.SaveCart(order);
+
+                //check if same product exist in the cart
+                List<CartItem> items = await DB.CartItems();
+                var cartitm = (from r in items
+                               where r.CartID == order.ID
+                         select r
+                         ).FirstOrDefault();
+
+                if (cartitm == null)
+                {
+                    cartitm = new CartItem()
+                    {
+                        ProductID = Model.Item.ID,
+                        CartID = order.ID,
+                        IsDeleted = false,
+                        CreatedBy = AppShell.CurrentUser.Username,
+                        CreatedDate = DateTime.Now,
+                    };
+                }
+
+                cartitm.Quantity = Model.Quantity;
+                cartitm.ModifiedBy = AppShell.CurrentUser.Username;
+                cartitm.ModifiedDate = DateTime.Now;
+
+                await DB.SaveCartItem(cartitm);
+
+
+            }
+            else // go to login if no user available
+            {
+                Nav.NavigateTo($"/login?returnto=productitem-{productid}");
+            }
+
+        } 
     }
 }

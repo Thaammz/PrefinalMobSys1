@@ -1,12 +1,25 @@
 ﻿@using PrefinalMobSys1.Data
+@inject NavigationManager Nav
 @inject AppShellContext AppShell
+<style>
+    .userpane {
+        font-size: 24px;
+        color: green;
+        text-transform: capitalize;
+    }
+</style>
 <nav class="mobile-nav" onclick="hideMenu()">
     @if (AppShell.IsUserLoggedIn)
     {
         if (AppShell.CurrentUser!=null)
         {
             <div class="userpane">
+                <i class="fas fa-user"></i>&nbsp;
                 Hi @AppShell.CurrentUser.Username
+                <a class="btn btn-outline-danger" href="javascript:void(0)" style="float:right" @onclick="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+
             </div>
         }
     }
@@ -14,16 +27,6 @@
         <li>
             <a class="nav-link" href="">
                 <i class="fa fa-home"></i>&nbsp;Home
-            </a>
-        </li>
-        <li>
-            <a class="nav-link" href="register">
-                <i class="fa fa-list"></i>&nbsp;Register
-            </a>
-        </li>
-        <li>
-            <a class="nav-link" href="login">
-                <i class="fa fa-sign-in-alt"></i>&nbsp;Login
             </a>
         </li>
         <li>
@@ -41,24 +44,45 @@
                 <i class="fa fa-truck"></i>&nbsp;My Orders
             </a>
         </li>
-        <hr />
-        <!--Admin Pages Here-->
-        <li>
-            <a class="nav-link" href="products">
-                <i class="fa fa-dolly-flatbed"></i>&nbsp;Products
-            </a>
-        </li>
-        <li>
-            <a class="nav-link" href="orders">
-                <i class="fa fa-cash-register"></i>&nbsp;Orders
-            </a>
-        </li>
-        <li>
-            <a class="nav-link" href="users">
-                <i class="fa fa-users"></i>&nbsp;Users
-            </a>
-        </li>
     </ul>
+    <hr />
+    @if (AppShell.IsUserLoggedIn)
+    {
+        <ul>
+            <!--Admin Pages Here-->
+            <li>
+                <a class="nav-link" href="products">
+                    <i class="fa fa-dolly-flatbed"></i>&nbsp;Products
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" href="orders">
+                    <i class="fa fa-cash-register"></i>&nbsp;Orders
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" href="users">
+                    <i class="fa fa-users"></i>&nbsp;Users
+                </a>
+            </li>
+        </ul>
+    }
+    else
+    {
+        <ul>
+            <li>
+                <a class="nav-link" href="register">
+                    <i class="fa fa-list"></i>&nbsp;Register
+                </a>
+            </li>
+            <li>
+                <a class="nav-link" href="login">
+                    <i class="fa fa-sign-in-alt"></i>&nbsp;Login
+                </a>
+            </li>
+        </ul>
+    }
+
 </nav>
 
 @code {
@@ -70,5 +94,14 @@
     public void Dispose()
     {
         AppShell.OnChange -= StateHasChanged;
+    }
+
+    public async void Logout()
+    {
+        AppShell.ClearSessionUser();
+        AppShell.CurrentUser = null;
+        AppShell.IsUserLoggedIn = false;
+        await InvokeAsync(StateHasChanged);
+        Nav.NavigateTo($"/login?returnto=home");
     }
 }

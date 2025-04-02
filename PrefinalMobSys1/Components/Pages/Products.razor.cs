@@ -27,32 +27,6 @@ namespace PrefinalMobSys1.Components.Pages
 
         public async Task<List<Product>> GetProducts()
         {
-            //var originalProductList = await DB.Products();
-            //var ProductList = new List<ProductItemModel>();
-
-            //foreach(var itm in originalProductList)
-            //{
-            //    ProductItemModel newitm = new ProductItemModel()
-            //    {
-            //        ID = itm.ID,
-            //        Name = itm.Name,
-            //        Category = itm.Category,
-            //        Description = itm.Description,
-            //        Price = itm.Price,
-            //        SKU = itm.SKU,
-            //        IsActive = itm.IsActive,
-            //        IsDeleted = itm.IsDeleted,
-            //        CreatedBy = itm.CreatedBy,
-            //        ModifiedBy = itm.ModifiedBy,
-            //        CreatedDate = itm.CreatedDate,
-            //        ModifiedDate = itm.ModifiedDate,
-            //        Icon = GetIconFromCategory(itm.Category)
-            //    };
-            //    ProductList.Add(newitm);
-            //}
-
-
-            //return ProductList;
             return await DB.Products();
         }
 

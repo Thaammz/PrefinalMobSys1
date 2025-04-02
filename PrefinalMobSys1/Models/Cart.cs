@@ -21,6 +21,18 @@ namespace PrefinalMobSys1.Models
         public double Total { get; set; }
 
         [NotNull]
+        public string ReferenceCode { get; set; }
+
+        [NotNull]
+        public string PaymentReference { get; set; }
+
+        [NotNull]
+        public bool IsCompleted { get; set; }
+
+        [NotNull]
+        public bool IsPaid { get; set; }
+
+        [NotNull]
         public bool IsDeleted { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
