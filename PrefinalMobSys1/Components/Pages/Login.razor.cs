@@ -43,17 +43,18 @@ namespace PrefinalMobSys1.Components.Pages
             else
             {
                 var users = await DB.Users();
-                var lookingFor = (from row in users
+                var targetUser = (from row in users
                                   where row.Username == Model.Username
                                   && row.Password == Model.Password
                                   select row).FirstOrDefault();
 
-                if (lookingFor != null)
+                if (targetUser != null)
                 {
                     Status = "success";
                     StatusMessage = "User changes has been saved successfully!";
-                    AppShell.CurrentUser = lookingFor;
+                    AppShell.CurrentUser = targetUser;
                     AppShell.IsUserLoggedIn = true;
+                    AppShell.SetSessionUser(targetUser);
                     await InvokeAsync(StateHasChanged);
                     Nav.NavigateTo("/");
                 }

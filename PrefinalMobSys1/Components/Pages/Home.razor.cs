@@ -30,6 +30,14 @@ namespace PrefinalMobSys1.Components.Pages
         {
             Model = new HomeViewModel();
 
+            //check logged-in user
+            var loggedUser = AppShell.GetSessionUser();
+            if (loggedUser != null)
+            {
+                AppShell.CurrentUser = loggedUser;
+                AppShell.IsUserLoggedIn = true;
+            }
+
             //temporary load up since we have to get a random list of items
             var allproducts = await DB.Products();
             
@@ -38,6 +46,7 @@ namespace PrefinalMobSys1.Components.Pages
 
             allproducts.Shuffle<Product>();//Shuffle Order
             Model.TopWeek = (from row in allproducts where row.IsActive orderby row.ID ascending select row).Take(5).ToList();
+
             await InvokeAsync(StateHasChanged);
         }
 

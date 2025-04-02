@@ -177,6 +177,8 @@ fieldset {
         font-size: unset;
         line-height: unset;
         display: none;
+        /*opacity:0;*/
+        transition: display ease-in 0.5s;
     }
 
     fieldset .form-control {
@@ -195,6 +197,7 @@ fieldset {
         fieldset:has(> .form-control:focus) legend, fieldset.hasText legend {
             display: inline;
             color: #258cfb;
+            /*opacity: 1;*/
         }
 
 .pageblocker {
@@ -509,4 +512,20 @@ article section:not(:first-child) {
         font-size: 20px;
         color: #FFF;
     }
+
+
+    .btn.scaledbutton {
+        width: 100%;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 20px;
+        color: #FFF;
+    }
+
+
+.card.enhanced {
+    padding:5px;
+    margin:5px;
+    border:none;
+    /*box-shadow:0px 0px 8px #CCC;*/
 }

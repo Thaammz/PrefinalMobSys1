@@ -16,9 +16,9 @@
     </div>
     <div class="product-middle-section">
         <div id="toCart" class="input-group">
-            <span class="input-group-text btn-warning"><i class="fa fa-minus"></i></span>
-            <input id="txtQuantity" type="number" class="form-control" />
-            <span class="input-group-text btn-warning"><i class="fa fa-plus"></i></span>
+            <span class="input-group-text btn-warning" @onclick="MinusQuantity"><i class="fa fa-minus"></i></span>
+            <input id="txtQuantity" type="number" class="form-control" @bind="Model.Quantity" />
+            <span class="input-group-text btn-warning" @onclick="AddQuantity"><i class="fa fa-plus"></i></span>
         </div>
     </div>
     <div class="product-info">
@@ -40,7 +40,7 @@
             <h3>Details</h3>
             <p>@Model.Item.Description</p>
         </div>
-        <button class="btn btn-warning addtocart">
+        <button class="btn btn-warning addtocart" @onclick="AddToCart">
             Add to Cart
         </button>
     </div>
