@@ -4,6 +4,7 @@
         <button class="btn text-warning" onclick="history.back()">
             <i class="fas fa-arrow-left"></i>
         </button>
+        <CartButton />
         <button class="btn text-warning" >
             <i class="far fa-heart"></i>
         </button>
@@ -40,8 +41,8 @@
             <h3>Details</h3>
             <p>@Model.Item.Description</p>
         </div>
-        <button class="btn btn-warning addtocart" @onclick="AddToCart">
-            Add to Cart
+        <button class="btn btn-@Model.Status addtocart" @onclick="AddToCart">
+            @Model.StatusMessage
         </button>
     </div>
 </div>

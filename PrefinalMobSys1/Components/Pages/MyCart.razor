@@ -14,7 +14,7 @@
         </button>
     </span>
 </SectionContent>
-@* <section>
+<section>
     <h2>My Cart</h2>
     <div class="landscape-menulist">
         @foreach (var itm in Model.Items4Checkout)
@@ -33,7 +33,7 @@
         }
     </div>
     <div>
-        <table style="width:100%">
+        @* <table style="width:100%">
             <tr>
                 <td>Total Item(s):</td>
                 <td>@Model.Order.Total</td>
@@ -49,9 +49,9 @@
                 <td>Total:</td>
                 <td>@Model.FullPrice</td>
             </tr>
-        </table>
+        </table> *@
     </div>
     <button type="submit" class="btn btn-warning scaledbutton">
         <i class="fas fa-cash-register"></i>&nbsp;Proceed to Payment
     </button>
-</section> *@
+</section>

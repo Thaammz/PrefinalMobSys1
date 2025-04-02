@@ -49,29 +49,30 @@ namespace PrefinalMobSys1.Components.Pages
                     if (order != null)
                     {
                         Model.Order = order;
-                        //var ordereditems = (from r in orderedItems
-                        //                        where r.CartID == userID
-                        //                        select r).ToList();
-                        //foreach (var row in ordereditems)
-                        //{
-                        //    var refProd = (from r in allproducts
-                        //                        where r.ID == row.ProductID
-                        //                   select r).FirstOrDefault();
-                        //    CartItemViewModel transferObject = new CartItemViewModel {
-                        //        CartID = row.CartID,
-                        //        ID = row.ProductID,
-                        //        Quantity = row.Quantity,
-                        //        IsDeleted = row.IsDeleted,
-                        //        Name = refProd.Name,
-                        //        Price = refProd.Price,
-                        //        Category = refProd.Category,
-                        //        Description = refProd.Description,  
-                        //    };
+                        var ordereditems = (from r in orderedItems
+                                            where r.CartID == userID
+                                            select r).ToList();
+                        foreach (var row in ordereditems)
+                        {
+                            var refProd = (from r in allproducts
+                                           where r.ID == row.ProductID
+                                           select r).FirstOrDefault();
+                            CartItemViewModel transferObject = new CartItemViewModel
+                            {
+                                CartID = row.CartID,
+                                ID = row.ProductID,
+                                Quantity = row.Quantity,
+                                IsDeleted = row.IsDeleted,
+                                Name = refProd.Name,
+                                Price = refProd.Price,
+                                Category = refProd.Category,
+                                Description = refProd.Description,
+                            };
 
-                        //    Model.FullPrice += refProd.Price;
-                        //    Model.Items4Checkout.Add(transferObject);
-                        //}
-                        //Model.Order.Total = Model.FullPrice + DeliveryFee;
+                            Model.FullPrice += refProd.Price;
+                            Model.Items4Checkout.Add(transferObject);
+                        }
+                        Model.Order.Total = Model.FullPrice + DeliveryFee;
 
 
                     }

@@ -30,7 +30,9 @@ namespace PrefinalMobSys1.Components.Pages
         {
             Model = new ProductItemViewModel();
             Model.Item = new Product();
-            Model.Quantity = 0;
+            Model.Quantity = 1;
+            Model.Status = "warning";
+            Model.StatusMessage = "Add to Cart";
             var allproducts = await DB.Products();
 
             if (allproducts != null)
@@ -107,7 +109,8 @@ namespace PrefinalMobSys1.Components.Pages
                 List<CartItem> items = await DB.CartItems();
                 var cartitm = (from r in items
                                where r.CartID == order.ID
-                         select r
+                               && r.ProductID == Model.Item.ID
+                               select r
                          ).FirstOrDefault();
 
                 if (cartitm == null)
@@ -127,14 +130,14 @@ namespace PrefinalMobSys1.Components.Pages
                 cartitm.ModifiedDate = DateTime.Now;
 
                 await DB.SaveCartItem(cartitm);
-
-
+                Model.Status = "danger";
+                Model.StatusMessage = "Remove from Cart";
             }
             else // go to login if no user available
             {
                 Nav.NavigateTo($"/login?returnto=productitem-{productid}");
             }
-
+            await InvokeAsync(StateHasChanged);//refresh rendered page
         } 
     }
 }
