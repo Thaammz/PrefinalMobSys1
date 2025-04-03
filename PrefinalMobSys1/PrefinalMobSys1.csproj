@@ -40,48 +40,56 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Contacts</ApplicationTitle>
+      <ApplicationIdGuid>d6d60e5b-07e4-44f9-82c1-570a5ad46126</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Contacts</ApplicationTitle>
+      <ApplicationIdGuid>d6d60e5b-07e4-44f9-82c1-570a5ad46126</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Contacts</ApplicationTitle>
+      <ApplicationIdGuid>d6d60e5b-07e4-44f9-82c1-570a5ad46126</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Contacts</ApplicationTitle>
+      <ApplicationIdGuid>d6d60e5b-07e4-44f9-82c1-570a5ad46126</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Contacts</ApplicationTitle>
+      <ApplicationIdGuid>d6d60e5b-07e4-44f9-82c1-570a5ad46126</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Contacts</ApplicationTitle>
+      <ApplicationIdGuid>d6d60e5b-07e4-44f9-82c1-570a5ad46126</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Contacts</ApplicationTitle>
+      <ApplicationIdGuid>d6d60e5b-07e4-44f9-82c1-570a5ad46126</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Contacts</ApplicationTitle>
+      <ApplicationIdGuid>d6d60e5b-07e4-44f9-82c1-570a5ad46126</ApplicationIdGuid>
     </PropertyGroup>
 
     <ItemGroup>
         <!-- App Icon -->
         <!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.50" Color="#ffc107" />-->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.70" Color="#ffc107" TintColor="#00FF0000" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#00FF0000" />
 		<!--<MauiIcon Include="Resources\AppIcon\appicon2.png" Color="#ffc107"  />-->
         <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#ffc107" BaseSize="128,128" />
 
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
-        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+        <!--<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />-->
 
         <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
