@@ -40,48 +40,65 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Notes</ApplicationTitle>
+      <ApplicationId>com.companyname.prefinalmobsys1.mynotes</ApplicationId>
+      <ApplicationIdGuid>034fb3a3-6d4d-48cb-b40a-a3de08ea6a55</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Notes</ApplicationTitle>
+      <ApplicationId>com.companyname.prefinalmobsys1.mynotes</ApplicationId>
+      <ApplicationIdGuid>034fb3a3-6d4d-48cb-b40a-a3de08ea6a55</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Notes</ApplicationTitle>
+      <ApplicationId>com.companyname.prefinalmobsys1.mynotes</ApplicationId>
+      <ApplicationIdGuid>034fb3a3-6d4d-48cb-b40a-a3de08ea6a55</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Notes</ApplicationTitle>
+      <ApplicationId>com.companyname.prefinalmobsys1.mynotes</ApplicationId>
+      <ApplicationIdGuid>034fb3a3-6d4d-48cb-b40a-a3de08ea6a55</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Notes</ApplicationTitle>
+      <ApplicationId>com.companyname.prefinalmobsys1.mynotes</ApplicationId>
+      <ApplicationIdGuid>034fb3a3-6d4d-48cb-b40a-a3de08ea6a55</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Notes</ApplicationTitle>
+      <ApplicationId>com.companyname.prefinalmobsys1.mynotes</ApplicationId>
+      <ApplicationIdGuid>034fb3a3-6d4d-48cb-b40a-a3de08ea6a55</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Notes</ApplicationTitle>
+      <ApplicationId>com.companyname.prefinalmobsys1.mynotes</ApplicationId>
+      <ApplicationIdGuid>034fb3a3-6d4d-48cb-b40a-a3de08ea6a55</ApplicationIdGuid>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
-      <ApplicationTitle>Meryenda</ApplicationTitle>
+      <ApplicationTitle>My Notes</ApplicationTitle>
+      <ApplicationId>com.companyname.prefinalmobsys1.mynotes</ApplicationId>
+      <ApplicationIdGuid>034fb3a3-6d4d-48cb-b40a-a3de08ea6a55</ApplicationIdGuid>
     </PropertyGroup>
 
     <ItemGroup>
         <!-- App Icon -->
         <!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.50" Color="#ffc107" />-->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.70" Color="#ffc107" TintColor="#00FF0000" />
+        <!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.70" Color="#ffc107" TintColor="#00FF0000" />-->
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#00FF0000" />
 		<!--<MauiIcon Include="Resources\AppIcon\appicon2.png" Color="#ffc107"  />-->
         <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#ffc107" BaseSize="128,128" />
 
         <!-- Images -->
-        <MauiImage Include="Resources\Images\*" />
-        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+        <!--<MauiImage Include="Resources\Images\*" />
+        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />-->
 
         <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
