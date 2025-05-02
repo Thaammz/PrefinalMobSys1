@@ -49,6 +49,12 @@ namespace PrefinalMobSys1.Components.Pages
             {
                 Model.SelectedProduct.SKU = string.IsNullOrWhiteSpace(Model.SelectedProduct.SKU) ? DateTime.Now.Ticks.ToString() : Model.SelectedProduct.SKU;
                 await DB.SaveProduct(Model.SelectedProduct);
+
+                if (Model.LoadedPhotoPath.StartsWith("/Temp"))
+                {
+                    SaveProductPhoto(Model.SelectedProduct.ID);
+                }
+
                 Model.ShowForm = false;
                 Model.Status = "success";
                 Model.StatusMessage = "Product changes has been saved successfully!";
@@ -81,6 +87,7 @@ namespace PrefinalMobSys1.Components.Pages
 
         public void AddProduct()
         {
+            Model.LoadedPhotoPath = "/imgs/default_food.png";
             Model.StatusMessage = ""; //clear alert
             Model.SelectedProduct = new Models.Product();
             Model.IsNew = true;
@@ -137,14 +144,28 @@ namespace PrefinalMobSys1.Components.Pages
             await InvokeAsync(StateHasChanged);//refresh rendered page
         }
 
-        public async void AddProductPhoto(int productID)
+        public async void AddProductPhoto()
         {
-            string folderPath = Path.Combine(FileSystem.AppDataDirectory, "ProductPhotos");
-            string retFile = await DeviceUtilities.AddPhoto(folderPath,$"{productID}.jpg");
+            string folderPath = Path.Combine(FileSystem.AppDataDirectory, "Temp");
+            string retFile = await DeviceUtilities.AddPhoto(folderPath,$"sampleProduct.jpg");
 
             if (!string.IsNullOrWhiteSpace(retFile))
             {
                 string filenameOnly = Path.GetFileName(retFile);
+                Model.LoadedPhotoPath = $"/Temp/sampleProduct.jpg";
+                await InvokeAsync(StateHasChanged);//refresh rendered page
+            }
+        }
+
+        public async void SaveProductPhoto(int productID)
+        {
+            string tempPath = Path.Combine(FileSystem.AppDataDirectory, "Temp", $"sampleProduct.jpg");
+            string productPath = Path.Combine(FileSystem.AppDataDirectory, "ProductPhotos", $"{productID}.jpg");
+
+            if (File.Exists(tempPath))
+            {
+                File.Copy(tempPath, productPath, true);
+                string filenameOnly = Path.GetFileName(productPath);
                 Model.LoadedPhotoPath = $"/ProductPhotos/{filenameOnly}";
                 await InvokeAsync(StateHasChanged);//refresh rendered page
             }

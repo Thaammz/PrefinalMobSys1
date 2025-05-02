@@ -70,7 +70,7 @@
                 <legend>Product Photo:</legend>
                 <div class="photoBox" style="height:100px;display:inline-flex">
                     <img src="@Model.LoadedPhotoPath" style="height:100%" />
-                    <button class="btn text-success" @onclick="(()=>{AddProductPhoto(Model.SelectedProduct.ID);})"><i class="fa fa-edit"></i></button>
+                    <button class="btn text-success" @onclick="(()=>{AddProductPhoto();})"><i class="fa fa-edit"></i></button>
                     <button class="btn text-danger"><i class="fa fa-trash"></i></button>
                 </div>
             </fieldset>
