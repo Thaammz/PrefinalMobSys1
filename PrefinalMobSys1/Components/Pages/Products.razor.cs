@@ -19,6 +19,11 @@ namespace PrefinalMobSys1.Components.Pages
 
         protected override async void OnInitialized()
         {
+            if (!Directory.Exists(Path.Combine(FileSystem.AppDataDirectory, "ProductPhotos")))
+            {
+                Directory.CreateDirectory(Path.Combine(FileSystem.AppDataDirectory, "ProductPhotos"));
+            }
+
             Model = new ProductsViewModel();
             Model.Products = await GetProducts();
             await InvokeAsync(StateHasChanged);//refresh rendered page
