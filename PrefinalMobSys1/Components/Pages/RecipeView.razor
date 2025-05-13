@@ -1,0 +1,48 @@
+﻿@page "/recipeview"
+<SectionContent SectionName="page-buttons">
+    <span>
+        <button class="btn text-warning" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <CartButton />
+        <button class="btn text-warning" >
+            <i class="far fa-heart"></i>
+        </button>
+    </span>    
+</SectionContent>
+<div class="product-details">
+    <h1>@Model.SelectedRecipe.Name</h1>
+    <div class="product-photo">
+        <img src="@Model.LoadedPhoto" />
+    </div>
+    <div class="product-middle-section">
+        <div id="toCart" class="input-group">
+            <span class="input-group-text btn-warning" @onclick="MinusServings"><i class="fa fa-minus"></i></span>
+            <input id="txtQuantity" type="number" class="form-control" @bind="Model.Servings" />
+            <span class="input-group-text btn-warning" @onclick="AddServings"><i class="fa fa-plus"></i></span>
+        </div>
+    </div>
+    <div class="product-info">
+        <div class="product-properties">
+            <div class="product-property">
+                <h3>Size</h3>
+                <h2>N/A</h2>
+            </div>
+            <div class="product-property">
+                <h3>Weight</h3>
+                <h2>N/A</h2>
+            </div>
+            <div class="product-property">
+                <h3>Price</h3>
+                <h2><i class="fa fa-dollar-sign"></i>@Model.SelectedRecipe.CookTimeInMinutes</h2>
+            </div>
+        </div>
+        <div class="product-description-review">
+            <h3>Details</h3>
+            <p>@Model.SelectedRecipe.Description</p>
+        </div>
+        <button class="btn btn-@Model.Status addtocart" >
+            @Model.StatusMessage
+        </button>
+    </div>
+</div>

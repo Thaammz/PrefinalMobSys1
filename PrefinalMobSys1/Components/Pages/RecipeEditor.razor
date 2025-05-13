@@ -1,0 +1,150 @@
+﻿@page "/recipeeditor"
+<SectionContent SectionName="page-buttons">
+    <span>
+        <button class="btn text-warning" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        @if (!Model.IsNew)
+        {
+            <button class="btn text-danger" @onclick="()=>{ DeleteRecipe(Model.SelectedRecipe.ID); }"><i class="fa fa-trash"></i></button>
+        }
+    </span>    
+</SectionContent>
+@if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
+{
+    <div class="alert alert-@Model.Status">
+        <i class="fa fa-info-circle"></i>&nbsp;
+        @Model.StatusMessage
+    </div>
+}
+<div id="pneRecipeForm" class="pagedform">
+    <h2>
+        Recipe                    
+    </h2>
+    <div class="content">
+    @* <label class="form-label">ID:</label>
+        <input type="text" @bind="Model.SelectedRecipe.ID" disabled class="form-control"> *@
+        <fieldset class="hasText">
+            <legend>Recipe Photo:</legend>
+            <div class="photoBox" style="height:100px;display:inline-flex">
+                <img src="@Model.LoadedPhoto" style="height:100%" />
+                <button class="btn text-success" @onclick="(()=>{AddRecipePhoto(Model.SelectedRecipe.ID);})"><i class="fa fa-edit"></i></button>
+                <button class="btn text-danger"><i class="fa fa-trash"></i></button>
+            </div>
+        </fieldset>
+        <fieldset class="hasText">
+            <legend>Recipe Name:</legend>
+            <input type="text" @bind="Model.SelectedRecipe.Name" placeholder="Recipe Name" title="Recipe Name" class="form-control ">
+        </fieldset>
+        <fieldset class="hasText">
+            <legend>Cooking Time in Minutes:</legend>
+            <input type="number" @bind="Model.SelectedRecipe.CookTimeInMinutes" placeholder="Cooking Time in Minutes" title="Cooking Time in Minutes" class="form-control ">
+        </fieldset>
+        <fieldset class="hasText">
+            <legend>Initial Servings:</legend>
+            <input type="number" @bind="Model.SelectedRecipe.InitialServings" placeholder="Initial Servings" title="Initial Servings" class="form-control ">
+        </fieldset>
+        <fieldset class="hasText">
+            <legend>Description:</legend>
+            <textarea @bind="Model.SelectedRecipe.Description" title="Description" placeholder="Description" class="form-control"></textarea>
+        </fieldset>    
+        <fieldset class="hasText">
+            <legend>Ingredients:</legend>
+            <div class="editable-list">
+                <ul>
+                    <li class="el-recipe-ingredient" >
+                        <span class="el-recipe-ingredient-amount">1 1/2</span>
+                        <span class="el-recipe-ingredient-unit">lb</span>
+                        <span class="el-recipe-ingredient-name">ground pork</span>
+                        <button class="btn text-danger"><i class="fa fa-trash"></i></button>
+                    </li>
+                    <li class="el-recipe-ingredient" >
+                        <span class="el-recipe-ingredient-amount">1 1/2</span>
+                        <span class="el-recipe-ingredient-unit">lb</span>
+                        <span class="el-recipe-ingredient-name">ground pork</span>
+                        <button class="btn text-danger"><i class="fa fa-trash"></i></button>
+                    </li>
+                    <li class="el-recipe-ingredient">
+                        <span class="el-recipe-ingredient-amount">1 1/2</span>
+                        <span class="el-recipe-ingredient-unit">lb</span>
+                        <span class="el-recipe-ingredient-name">ground pork</span>
+                        <button class="btn text-danger"><i class="fa fa-trash"></i></button>
+                    </li>
+                </ul>
+                <hr />
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 70px;"><input type="number" step="0.1" class="" /></td>
+                        <td>
+                            <select>
+                                <option></option>
+                                <option>lb</option>
+                                <option>ounces</option>
+                                <option>g</option>
+                                <option>kg</option>
+                                <option>cup</option>
+                                <option>liter</option>
+                                <option>tablespoon</option>
+                                <option>teaspoon</option>
+                                <option>piece(s)</option>
+                            </select>
+                        </td>
+                        <td colspan="1" rowspan="2">
+                            <button class="btn btn-success" style=" height: 100%; width: 50px; margin: 5px; padding: 25px 6px; font-size: 30px; "><i class="fa fa-plus"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="text" placeholder="Add Ingredient here" class="" />
+                        </td>
+                    </tr>
+                </table>
+                
+                
+                
+                
+            </div>
+        </fieldset>
+        <fieldset class="hasText">
+            <legend>Cooking Steps:</legend>
+            <div>
+                <ol>
+                    <li class="el-recipe-cooking-step">
+                        <p>
+                            Heat a cooking pot and pour-in the cooking oil.
+                        </p>
+                    </li>
+                    <li class="el-recipe-cooking-step">
+                        <p>
+                            Heat a cooking pot and pour-in the cooking oil.
+                        </p>
+                    </li>
+                    <li class="el-recipe-cooking-step">
+                        <p>
+                            Heat a cooking pot and pour-in the cooking oil.
+                        </p>
+                    </li>
+                    <li class="el-recipe-cooking-step">
+                        <p>
+                            Heat a cooking pot and pour-in the cooking oil.
+                        </p>
+                    </li>
+                </ol>
+                <table style="width:100%">
+                    <tr>
+                        <td><textarea placeholder="Enter Cooking Step here"></textarea></td>
+                        <td><button class="btn btn-warning"><i class="fa fa-plus"></i></button></td>
+                    </tr>
+                </table>
+                
+                
+            </div>
+        </fieldset>
+    </div>
+    <div style="text-align:center">
+        <button class="btn btn-success bigsavebutton" @onclick="SaveRecipe" >
+            <i class="fa fa-save"></i>&nbsp;
+            Save
+        </button>
+    </div>
+</div>

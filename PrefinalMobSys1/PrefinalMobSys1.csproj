@@ -90,7 +90,7 @@
     <ItemGroup>
         <!-- App Icon -->
         <!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.50" Color="#ffc107" />-->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#00FF0000"  ForegroundScale="0.50" BaseSize="64,64" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#00FF0000" ForegroundScale="0.50" BaseSize="64,64" />
 		<!--<MauiIcon Include="Resources\AppIcon\appicon2.png" Color="#ffc107"  />-->
         <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#FFFFFF" />
@@ -116,6 +116,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Components\Shared\" />
       <Folder Include="wwwroot\imgs\ads\" />
     </ItemGroup>
 

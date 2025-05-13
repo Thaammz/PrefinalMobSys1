@@ -27,5 +27,10 @@ namespace PrefinalMobSys1.Models
         /// Store the message for the alert
         /// </summary>
         public string StatusMessage { get; set; } = "";
+
+        /// <summary>
+        /// For General Search
+        /// </summary>
+        public string Search { get; set; }
     }
 }

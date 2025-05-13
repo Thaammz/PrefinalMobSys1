@@ -34,8 +34,12 @@ namespace PrefinalMobSys1.Data
             database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
             //Create tables
             await database.CreateTableAsync<User>();
+            await database.CreateTableAsync<Recipe>();
+            await database.CreateTableAsync<RecipeIngredient>();
 
         }
+
+        #region Users
 
         public async Task<List<User>> Users()
         {
@@ -57,5 +61,53 @@ namespace PrefinalMobSys1.Data
             await Init();
             return await database.DeleteAsync(incoming);
         }
+
+        #endregion
+
+        #region Recipes
+        public async Task<List<Recipe>> Recipes() 
+        {
+            await Init();
+            return await database.Table<Recipe>().ToListAsync();
+        }
+
+        public async Task<int> SaveRecipe(Recipe incoming)
+        {
+            await Init();
+            if (incoming.ID != 0)
+                return await database.UpdateAsync(incoming);//update existing
+            else
+                return await database.InsertAsync(incoming);//insert new
+        }
+
+        public async Task<int> DeleteRecipe(Recipe incoming)
+        {
+            await Init();
+            return await database.DeleteAsync(incoming);
+        }
+        #endregion
+
+        #region Recipe Ingredients
+        public async Task<List<RecipeIngredient>> RecipeIngredients()
+        {
+            await Init();
+            return await database.Table<RecipeIngredient>().ToListAsync();
+        }
+
+        public async Task<int> SaveRecipeIngredient(RecipeIngredient incoming)
+        {
+            await Init();
+            if (incoming.ID != 0)
+                return await database.UpdateAsync(incoming);//update existing
+            else
+                return await database.InsertAsync(incoming);//insert new
+        }
+
+        public async Task<int> DeleteRecipeIngredient(RecipeIngredient incoming)
+        {
+            await Init();
+            return await database.DeleteAsync(incoming);
+        }
+        #endregion
     }
 }
