@@ -38,15 +38,6 @@ namespace PrefinalMobSys1.Components.Pages
                 AppShell.IsUserLoggedIn = true;
             }
 
-            //temporary load up since we have to get a random list of items
-            var allproducts = await DB.Products();
-            
-            allproducts.Shuffle<Product>();//Shuffle Order
-            Model.Popular = (from row in allproducts where row.IsActive select row).Take(5).ToList();
-
-            allproducts.Shuffle<Product>();//Shuffle Order
-            Model.TopWeek = (from row in allproducts where row.IsActive orderby row.ID ascending select row).Take(5).ToList();
-
             await InvokeAsync(StateHasChanged);
         }
 
