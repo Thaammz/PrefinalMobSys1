@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace PrefinalMobSys1.Models
 {
-    public class HomeViewModel : BaseViewModel
+    public class InventoryItem
     {
-        public string Search { get; set; }     
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public int Quantity { get; set; }
     }
 }

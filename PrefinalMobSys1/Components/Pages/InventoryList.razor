@@ -1,0 +1,80 @@
+﻿@page "/inventory"
+@inject NavigationManager Navigation
+@inject PrefinalMobSys1.Data.InventoryService InventoryService
+
+<h3><i class="fa fa-archive" aria-hidden="true"></i>&nbsp;Inventory</h3>
+@if (!string.IsNullOrWhiteSpace(StatusMessage))
+{
+    <div class="alert alert-@Status">
+        <i class="fa fa-info-circle"></i>&nbsp;
+        @StatusMessage
+    </div>
+}
+<SectionContent SectionName="page-buttons">
+    <button class="btn text-primary" @onclick="AddItem" title="Add item">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+    <span id="grpUnselect">
+        <button class="btn text-success" onclick="toggleSelect()">
+            <i class="fas fa-tasks"></i>
+        </button>
+    </span>
+    <span id="grpSelect" style="display:none">
+        <button class="btn text-danger">
+            <i class="fa fa-minus-square"></i>
+        </button>
+        <button class="btn text-secondary" onclick="toggleSelect()">
+            <i class="fa fa-times"></i>
+        </button>
+    </span>
+    <button class="btn text-warning">
+        <i class="fa fa-search"></i>
+    </button>
+</SectionContent>
+
+<div class="itemsList">
+    <ul>
+        @foreach (var item in InventoryService.GetAll())
+        {
+            <li data-id="@item.Id" data-name="@item.Name">
+                <div class="leftindicator">
+                    <input id="chk_@item.Id" class="toggleSelect" type="checkbox" name="Inventory" value="@item.Id" style="display:none" />
+                    <i class="fa fa-cube toggleDeselect"></i>
+                    &nbsp;
+                </div>
+                <div class="centerdetails" onclick="$('#chk_@item.Id').trigger('click')">
+                    <h5 class="text-success" style="margin-bottom:0px">
+                        @item.Name
+                    </h5>
+                    <h6 class="text-secondary">
+                        Quantity: @item.Quantity
+                    </h6>
+                </div>
+                <div class="rightaction">
+                    <button class="btn text-secondary" @onclick="() => ViewDetails(item.Id)">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+    // Status message support (optional, for parity with Users.razor)
+    string? StatusMessage { get; set; }
+    string Status { get; set; } = "info";
+
+    void AddItem() => Navigation.NavigateTo("/inventory/form");
+    void ViewDetails(int id) => Navigation.NavigateTo($"/inventory/form/{id}");
+}
+
+<script>
+    function toggleSelect(){
+        $('#grpUnselect').toggle();
+        $('#grpSelect').toggle();
+
+        $('.itemsList li .toggleSelect').toggle();
+        $('.itemsList li .toggleDeselect').toggle();
+    }
+</script>

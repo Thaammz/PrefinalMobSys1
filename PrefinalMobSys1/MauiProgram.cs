@@ -24,6 +24,8 @@ namespace PrefinalMobSys1
 
             builder.Services.AddSingleton<AppShellContext>();
             builder.Services.AddSingleton<DatabaseContext>();
+            builder.Services.AddSingleton<InventoryService>();
+
             return builder.Build();
         }
     }

@@ -1,0 +1,107 @@
+﻿@page "/inventory/form/{Id:int?}"
+@using PrefinalMobSys1.Models
+@inject NavigationManager Navigation
+@inject PrefinalMobSys1.Data.InventoryService InventoryService
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    private InventoryItem item = new();
+    private bool IsEditMode { get; set; }
+    private bool IsNew => !Id.HasValue;
+
+    protected override void OnInitialized()
+    {
+        if (Id.HasValue)
+        {
+            var found = InventoryService.GetById(Id.Value);
+            if (found != null)
+            {
+                item = new InventoryItem { Id = found.Id, Name = found.Name, Quantity = found.Quantity };
+                IsEditMode = false;
+            }
+            else
+            {
+                item = new InventoryItem();
+                IsEditMode = true;
+            }
+        }
+        else
+        {
+            item = new InventoryItem();
+            IsEditMode = true;
+        }
+    }
+
+    void EnableEdit() => IsEditMode = true;
+
+    void Cancel()
+    {
+        if (IsNew)
+            Navigation.NavigateTo("/inventory");
+        else
+            IsEditMode = false;
+    }
+
+    void BackToList() => Navigation.NavigateTo("/inventory");
+
+    void HandleValidSubmit()
+    {
+        if (IsNew)
+            InventoryService.Add(item);
+        else
+            InventoryService.Update(item);
+
+        Navigation.NavigateTo("/inventory");
+    }
+}
+
+<div id="pneUserForm" >
+    <h4>
+        <i class="fa fa-archive"></i>&nbsp;@(IsNew ? "New Inventory Item" : (IsEditMode ? "Edit Inventory Item" : "Inventory Item Details"))
+        <button class="btn text-secondary" @onclick="BackToList" style="float:right">
+            <i class="fa fa-times"></i>
+        </button>
+    </h4>
+    <div class="content">
+        @if (IsEditMode)
+        {
+            <EditForm Model="@item" OnValidSubmit="HandleValidSubmit">
+                <fieldset class="hasText">
+                    <legend>Name:</legend>
+                    <InputText @bind-Value="item.Name" class="form-control" placeholder="Name" />
+                </fieldset>
+                <fieldset class="hasText">
+                    <legend>Quantity:</legend>
+                    <InputNumber @bind-Value="item.Quantity" class="form-control" placeholder="Quantity" />
+                </fieldset>
+                <div class="form-buttons">
+                    <button type="submit" class="btn text-primary">
+                        <i class="fa fa-save"></i>&nbsp;Save
+                    </button>
+                    <button type="button" class="btn text-secondary" @onclick="Cancel">
+                        <i class="fa fa-times"></i>&nbsp;Cancel
+                    </button>
+                </div>
+            </EditForm>
+        }
+        else
+        {
+            <fieldset class="hasText">
+                <legend>Name:</legend>
+                <input type="text" value="@item.Name" class="form-control" disabled />
+            </fieldset>
+            <fieldset class="hasText">
+                <legend>Quantity:</legend>
+                <input type="number" value="@item.Quantity" class="form-control" disabled />
+            </fieldset>
+            <div class="form-buttons">
+                <button class="btn text-primary" @onclick="EnableEdit">
+                    <i class="fa fa-edit"></i>&nbsp;Edit
+                </button>
+                <button class="btn text-secondary" @onclick="BackToList">
+                    <i class="fa fa-arrow-left"></i>&nbsp;Back
+                </button>
+            </div>
+        }
+    </div>
+</div>
