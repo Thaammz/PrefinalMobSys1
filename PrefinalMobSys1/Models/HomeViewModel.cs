@@ -8,8 +8,6 @@ namespace PrefinalMobSys1.Models
 {
     public class HomeViewModel : BaseViewModel
     {
-        public string Search { get; set; }
-        public List<Product> Popular { get; set; } = new List<Product>();
-        public List<Product> TopWeek { get; set; } = new List<Product>();        
+        public string Search { get; set; }   
     }
 }
