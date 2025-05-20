@@ -35,49 +35,13 @@
         </a>
     </div>
 </section>
-<section>
-    <h2>Popular Food</h2>
-    <div class="portrait-menulist">
-        @foreach(var itm in Model.Popular)
-        {
-            <div class="menuitem">
-                <div class="menuitem-img"><img src="/ProductPhotos/@(itm.ID).jpg" /></div>
-                <h3>@itm.Name</h3>
-                <h4>P@(itm.Price)</h4>
-                <div class="menuitem-actions">
-                    <a class="menuitem-add" href="/productitem?productid=@itm.ID">
-                        <i class="fa fa-plus"></i>
-                    </a>
-                </div>
-            </div>
-        }
-    </div>
-</section>
 <section id="adSection1" style="width:100%">
     <div class="cycle-slideshow">
         <img src="/imgs/ads/ad1.jpg" style="width:100%" />
         <img src="/imgs/ads/ad2.jpg" style="width:100%" />
     </div>
 </section>
-<section>
-    <h2>Top of the Week</h2>
-    <div class="landscape-menulist">
-        @foreach (var itm in Model.Popular)
-        {
-            <div class="menuitem">
-                <img src="/ProductPhotos/@(itm.ID).jpg" />
-                <h3>@itm.Name</h3>
-                <h5>@itm.Description</h5>
-                <h4>P@(itm.Price)</h4>
-                <div class="menuitem-actions">
-                    <a class="menuitem-add" href="/productitem?productid=@itm.ID">
-                        <i class="fa fa-plus"></i>
-                    </a>
-                </div>
-            </div>
-        }
-    </div>
-</section>
+
 <section id="adSection2" style="width:100%">
     <div class="cycle-slideshow" data-cycle-fx="scrollHorz"
          data-cycle-pause-on-hover="true"
