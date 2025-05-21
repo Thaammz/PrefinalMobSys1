@@ -1,64 +1,155 @@
 ﻿@page "/"
-<SectionContent SectionName="page-buttons">
-    <div id="searchBox" class="input-group header-search" style="display:none;">
-        <span class="input-group-text text-warning"><i class="fa fa-search"></i></span>
-        <input id="txtSearch" type="text" class="form-control" placeholder="Search" value="@Model.Search" @onchange="SearchTerm" />
-        <span class="input-group-text" onclick="hideSearchBox()"><i class="fa fa-times"></i></span>
-    </div>
-    <span id="controlBox">
-        <CartButton />
-        <button class="btn text-warning" onclick="showSearchBox()">
-            <i class="fa fa-search"></i>
+@using System.Linq
+
+@* Sample data for demonstration *@
+@code {
+    private string searchTerm = "";
+    private List<Contact> contacts = new()
+    {
+        new Contact { Id = 1, Name = "Alice Smith", Phone = "555-1234", Email = "alice@example.com" },
+        new Contact { Id = 2, Name = "Bob Johnson", Phone = "555-5678", Email = "bob@example.com" },
+        new Contact { Id = 3, Name = "Charlie Brown", Phone = "555-8765", Email = "charlie@example.com" }
+    };
+
+    private IEnumerable<Contact> FilteredContacts =>
+        string.IsNullOrWhiteSpace(searchTerm)
+            ? contacts
+            : contacts.Where(c => c.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || c.Phone.Contains(searchTerm));
+
+    private void AddContact() { /* Navigate to add contact page or show modal */ }
+    private void ViewContact(int id) { /* Navigate to view contact */ }
+    private void EditContact(int id) { /* Navigate to edit contact */ }
+    private void DeleteContact(int id) { contacts = contacts.Where(c => c.Id != id).ToList(); }
+}
+
+@* Dashboard Header *@
+<div class="dashboard-header">
+    <h2><i class="fa fa-address-book"></i> Contacts Dashboard</h2>
+    <div class="dashboard-actions">
+        <input class="form-control" type="text" placeholder="Search contacts..." @bind="searchTerm" />
+        <button class="btn btn-primary" @onclick="AddContact">
+            <i class="fa fa-user-plus"></i> Add Contact
         </button>
-    </span>    
-</SectionContent>
-<section>
-    <h1>Find your cravings</h1>
-    <div class="smallmenulist">
-        <a class="btn text-danger" href="/catalog?category=Hamburgers">
-            <i class="fa fa-hamburger"></i>
-        </a>
-        <a class="btn text-warning" href="/catalog?category=Pizza">
-            <i class="fa fa-pizza-slice"></i>
-        </a>
-        <a class="btn text-danger" href="/catalog?category=Hotdogs">
-            <i class="fa fa-hotdog"></i>
-        </a>
-        <a class="btn text-warning" href="/catalog?category=Cookies">
-            <i class="fa fa-cookie-bite"></i>
-        </a>
-        <a class="btn text-danger" href="/catalog?category=IceCream">
-            <i class="fa fa-ice-cream"></i>
-        </a>
-        <a class="btn text-primary" href="/catalog?category=All">
-            <i class="fa fa-ellipsis-h"></i>
-        </a>
     </div>
-</section>
-<section id="adSection1" style="width:100%">
-    <div class="cycle-slideshow">
-        <img src="/imgs/ads/ad1.jpg" style="width:100%" />
-        <img src="/imgs/ads/ad2.jpg" style="width:100%" />
-    </div>
-</section>
+</div>
 
-<section id="adSection2" style="width:100%">
-    <div class="cycle-slideshow" data-cycle-fx="scrollHorz"
-         data-cycle-pause-on-hover="true"
-         data-cycle-speed="200">
-        <img src="/imgs/ads/ad3.jpg" style="width:100%" />
-        <img src="/imgs/ads/ad4.jpg" style="width:100%" />
+@* Summary Card *@
+<div class="summary-cards">
+    <div class="card summary-card">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fa fa-users"></i> Total Contacts</h5>
+            <p class="card-text">@contacts.Count</p>
+        </div>
     </div>
-</section>
+</div>
 
-<script src="js/jquery.cycle2.js"></script>
-<script>
-    function showSearchBox(){
-        $('#searchBox').show();    
-        $('#controlBox').hide();
+@* Contacts List *@
+<div class="contacts-list">
+    @if (!FilteredContacts.Any())
+    {
+        <div class="alert alert-info">No contacts found.</div>
     }
-    function hideSearchBox(){
-        $('#searchBox').hide();
-        $('#controlBox').show();
+    else
+    {
+        <ul class="list-group">
+            @foreach (var contact in FilteredContacts)
+            {
+                <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <div class="contact-info d-flex align-items-center">
+                        <div class="avatar">
+                            <i class="fa fa-user-circle fa-2x"></i>
+                        </div>
+                        <div class="ms-3">
+                            <div class="fw-bold">@contact.Name</div>
+                            <div class="text-muted">@contact.Phone</div>
+                        </div>
+                    </div>
+                    <div class="contact-actions">
+                        <button class="btn btn-sm btn-info me-1" title="View" @onclick="() => ViewContact(contact.Id)">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning me-1" title="Edit" @onclick="() => EditContact(contact.Id)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" title="Delete" @onclick="() => DeleteContact(contact.Id)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                </li>
+            }
+        </ul>
     }
-</script>
+</div>
+
+@code {
+    public class Contact
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public string Phone { get; set; } = "";
+        public string Email { get; set; } = "";
+    }
+}
+
+<style>
+    .dashboard-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+    }
+
+        .dashboard-header h2 {
+            margin: 0;
+        }
+
+    .dashboard-actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .summary-cards {
+        margin-bottom: 1.5rem;
+    }
+
+    .summary-card {
+        min-width: 200px;
+        display: inline-block;
+        margin-right: 1rem;
+    }
+
+    .contacts-list .list-group-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .contact-info .avatar {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0f0f0;
+        border-radius: 50%;
+    }
+
+    .contact-actions button {
+        min-width: 36px;
+    }
+    @@media (max-width: 600px) {
+        .dashboard-header, .dashboard-actions
+
+    {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .summary-card {
+        margin-bottom: 1rem;
+    }
+
+    }
+</style>

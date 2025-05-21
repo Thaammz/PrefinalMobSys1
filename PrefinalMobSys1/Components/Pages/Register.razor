@@ -1,38 +1,64 @@
 ﻿@page "/register"
-<h3>Register</h3>
-@if (!string.IsNullOrWhiteSpace(StatusMessage))
-{
-    <div class="alert alert-@Status">
-        <i class="fa fa-info-circle"></i>&nbsp;
-        @StatusMessage
+<form @onsubmit="RegisterUser">
+    <div class="card enhanced">
+        @if (!string.IsNullOrWhiteSpace(StatusMessage))
+        {
+            <div class="alert alert-@Status">
+                <i class="fa fa-info-circle"></i>&nbsp;
+                @StatusMessage
+            </div>
+        }
+        <fieldset>
+            <legend>Username:</legend>
+            <input class="form-control" type="text" @bind="Model.Username" placeholder="Username" title="Username" />
+        </fieldset>
+        <fieldset>
+            <legend>Password:</legend>
+            <input type="password" @bind="Model.Password" placeholder="Password" title="Password" class="form-control" />
+        </fieldset>
+        <fieldset>
+            <legend>First Name:</legend>
+            <input class="form-control" type="text" @bind="Model.FirstName" placeholder="First Name" title="First Name" />
+        </fieldset>
+        <fieldset>
+            <legend>Last Name:</legend>
+            <input class="form-control" type="text" @bind="Model.LastName" placeholder="Last Name" title="Last Name" />
+        </fieldset>
+        <fieldset>
+            <legend>Mobile:</legend>
+            <input class="form-control" type="text" @bind="Model.MobileNumber" placeholder="Mobile" title="Mobile" />
+        </fieldset>
+        <fieldset>
+            <legend>Address:</legend>
+            <textarea class="form-control" @bind="Model.Address" placeholder="Address" title="Address"></textarea>
+        </fieldset>
+        <button type="submit" class="btn btn-warning scaledbutton">
+            <i class="fas fa-user-plus"></i>&nbsp;Register
+        </button>
     </div>
-}
-<table>
-    <tr>
-        <td><label>Username:</label></td>
-        <td><input type="text" @bind="Model.Username" /></td>
-    </tr>
-    <tr>
-        <td><label>Password:</label></td>
-        <td><input type="password" @bind="Model.Password" /></td>
-    </tr>
-    <tr>
-        <td><label>First Name:</label></td>
-        <td><input type="text" @bind="Model.FirstName" /></td>
-    </tr>
-    <tr>
-        <td><label>Last Name:</label></td>
-        <td><input type="text" @bind="Model.LastName" /></td>
-    </tr>
-    <tr>
-        <td><label>Mobile:</label></td>
-        <td><input type="text" @bind="Model.MobileNumber" /></td>
-    </tr>
-    <tr>
-        <td><label>Address:</label></td>
-        <td><textarea @bind="Model.Address"></textarea></td>
-    </tr>
-</table>
-<button @onclick="RegisterUser">
-    Save
-</button>
+</form>
+
+<script>
+    $(function(){
+        $('.form-control').on('focus',function(){
+            $(this).attr('placeholder','');
+            $(this).parent().addClass('hasFocus');
+        });
+        $('.form-control').on('blur',function(){
+            $(this).attr('placeholder',$(this).attr('title'));
+            $(this).parent().removeClass('hasFocus');
+        });
+        $('.form-control').each(function(){
+            $(this).parent().removeClass('hasText');
+            if($(this).val().length > 0){
+                $(this).parent().addClass('hasText');
+            }
+            $(this).on('change',function(){
+                $(this).parent().removeClass('hasText');
+                if($(this).val().length > 0){
+                    $(this).parent().addClass('hasText');
+                }
+            });
+        });
+    });
+</script>

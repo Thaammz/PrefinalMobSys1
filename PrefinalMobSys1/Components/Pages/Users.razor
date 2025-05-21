@@ -51,9 +51,13 @@
                     </h6>
                 </div>
                 <div class="rightaction">
-                    <button class="btn text-secondary" @onclick="()=>{ LoadUser(usr.ID); }">
+                    @* <button class="btn text-secondary" @onclick="()=>{ LoadUser(usr.ID); }">
                         <i class="fa fa-ellipsis-v"></i>
-                    </button>
+                    </button> *@
+
+                    <a class="btn text-secondary" href="/userform?userid=@usr.ID">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </a>
                 </div>
             </li>
         }        

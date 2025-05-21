@@ -1,0 +1,58 @@
+﻿@page "/userform"
+<SectionContent SectionName="page-buttons">
+    <span>
+        <button class="btn text-warning" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        @if (!Model.IsNew)
+        {
+            <button class="btn text-danger" @onclick="()=>{ DeleteUser(Model.SelectedUser.ID); }"><i class="fa fa-trash"></i></button>
+        }
+    </span>    
+</SectionContent>
+@if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
+{
+    <div class="alert alert-@Model.Status">
+        <i class="fa fa-info-circle"></i>&nbsp;
+        @Model.StatusMessage
+    </div>
+}
+<div id="pneUserForm" class="pagedform">
+    <h2>
+        User                    
+    </h2>
+    <div class="content">
+        @* <label class="form-label">ID:</label>
+        <input type="text" @bind="Model.SelectedUser.ID" disabled class="form-control"> *@
+        <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.Username))? "hasText":"")">
+            <legend>Username:</legend>
+            <input type="text" @bind="Model.SelectedUser.Username" placeholder="Username" title="Username" class="form-control ">
+        </fieldset>
+        <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.Password))? "hasText":"")">
+            <legend>Password:</legend>
+            <input type="password" @bind="Model.SelectedUser.Password" placeholder="Password" title="Password" class="form-control ">
+        </fieldset>
+        <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.FirstName))? "hasText":"")">
+            <legend>First Name:</legend>
+            <input type="text" @bind="Model.SelectedUser.FirstName" placeholder="First Name" title="First Name" class="form-control ">
+        </fieldset>
+        <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.LastName))? "hasText":"")">
+            <legend>Last Name:</legend>
+            <input type="text" @bind="Model.SelectedUser.LastName" placeholder="Last Name" title="Last Name" class="form-control ">
+        </fieldset>
+        <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.MobileNumber))? "hasText":"")">
+            <legend>Mobile Number:</legend>
+            <input type="text" @bind="Model.SelectedUser.MobileNumber" placeholder="Mobile Number" title="Mobile Number" class="form-control ">
+        </fieldset>
+        <fieldset class="@((!string.IsNullOrWhiteSpace(Model.SelectedUser.Address))? "hasText":"")">
+            <legend>Address:</legend>
+            <textarea @bind="Model.SelectedUser.Address" placeholder="Address" title="Address" class="form-control "></textarea>
+        </fieldset>
+    </div>
+    <div style="text-align:center">
+        <button class="btn btn-success bigsavebutton" @onclick="SaveUser" >
+            <i class="fa fa-save"></i>&nbsp;
+            Save
+        </button>
+    </div>
+</div>
